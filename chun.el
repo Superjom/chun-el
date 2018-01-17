@@ -13,29 +13,24 @@
   (interactive)
   (insert (shell-command-to-string "date +%Y-%m-%d")))
 
+(defun chun-monitor()
+    "display some information"
+  (interactive)
+  (with-current-buffer
+      (progn
+        (insert (format "current position: %d\n" (point)))
+        (insert "hello world")
+      )
+    )
+  )
 
-;; youdao translate
-(defvar chun-youdao-translate-appid "17ea0374e10001a5")
-(defvar chun-youdao-translate-secret-key "N7spl1iwV1RhLfzIOM2n3GNg2XewrJdv")
-(defconst chun-youdao-translate-api-url "http://openapi.youdao.com/api")
 
-(defun md5sum (str)
-  "generate md5 secure key for a string"
-  (let*
-      ((cmd (format "md5 -s \"%s\"" str))
-       (shell-res (shell-command-to-string cmd))
-       (str-start-index (length (format "MD5 (\"%s\") = " str)))
-       (res))
-    (substring shell-res str-start-index (length shell-res))))
+(set-buffer
+ (get-buffer-create "*chun*"))
 
-(defun chun-youdao-generate-request-command
-    (q from to)
-  (let* ((salt (random t))
-         (str (format "%s%s%d%s" chun-youdao-translate-appid q salt chun-youdao-translate-secret-key))
-         (md5-key (shell-command-to-string "md5sum"))
-         )
-    (message "str: %s" str)
-    ))
+(with-current-buffer (get-buffer-create "chun")
+  (insert "hello world")
+  )
 
-(chun-youdao-generate-request-command "hello" "auto" "en")
+(buffer-name)
 
